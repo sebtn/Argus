@@ -1,0 +1,21 @@
+{
+  "name": "pipedrive-bot",
+  "version": "0.0.1",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "apiai": "latest",
+    "async": "^2.0.0-rc.5",
+    "body-parser": "^1.15.0",
+    "config": "^1.21.0",
+    "express": "^4.13.4",
+    "node-uuid": "^1.4.7",
+    "path": "^0.12.7",
+    "promise": "^7.1.1",
+    "request": "^2.72.0",
+    "request-promise": "^4.0.2"
+  }
+}

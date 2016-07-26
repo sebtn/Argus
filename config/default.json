@@ -1,0 +1,26 @@
+{
+	"APIAI_ACCESS_TOKEN"     : {
+		"description" : "Client access token for Api.ai",
+		"value"       : "551170e2fd3f490dbd2671463d08e921"
+	},
+	"APIAI_LANGUAGE"         : {
+		"description" : "Agent language",
+		"value"       : "fr"
+	},
+	"FB_VERIFY_TOKEN"        : {
+		"description" : "Verification code",
+		"value"       : "pipedrivebot_verification_token"
+	},
+	"FB_PAGE_ACCESS_TOKEN"   : {
+		"description" : "Page Access Token",
+		"value"       : "EAAJjPwEelmYBAG0PWIwyv9RFTmH16uwlluR5CUpyjZBW8QgO90GXLtWQPHN3jJSPsjRa8wvXX9vCFV6S41l3oWqhZABuIMZA9ovk5CCm5jCGHUhQPTxRc9ahI0M8GFhbkKa4kcOmVStITyRyZB3ReMFZCC9xZBK3cpJKuYWHoAfdZBiZBSSSKjSo"
+	},
+	"FB_APP_SECRET"          : {
+		"description" : "Application secret",
+		"value"       : "8c081b80215c918a8b65833492fc1acc"
+	},
+	"PIPEDRIVE_ACCESS_TOKEN" : {
+		"description" : "Access token for pipedrive api",
+		"value"       : "4790f63da72f9d552a0d56c8977a0813b09f19dc"
+	}
+}
