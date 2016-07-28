@@ -68,7 +68,7 @@ module.exports = function (app) {
 	function processFbEvent (event)
 	{
 		var sender = event.sender.id.toString();
-		console.log('sender:' , event.sender.id.toString());
+		console.log('sender: ' event.sender.id.toString());
 
 	    if ((event.message && event.message.text) || (event.postback && event.postback.payload)) {
 	    var text = event.message ? event.message.text : event.postback.payload;
@@ -95,7 +95,8 @@ module.exports = function (app) {
 					var responseData = result.fulfillment.data;
 					var action       = result.action;
 
-					console.log('result: ', result);
+					console.log('responseData: ', responseData);
+					//console.log('result: ', result);
 					
 					if (isDefined(responseData) && isDefined(responseData.facebook)) {
                     if (!Array.isArray(responseData.facebook)) {
