@@ -18,7 +18,10 @@ const
       config       = require("config"),
       Deals        = require("../models/Deals");
 
-const PAGE_ACCESS_TOKEN = config.get("FB_PAGE_ACCESS_TOKEN");
+
+		const PAGE_ACCESS_TOKEN = config.get("FB_PAGE_ACCESS_TOKEN");
+		const APP_SECRET        = config.get("FB_APP_SECRET");
+		const VERIFY_TOKEN      = config.get("FB_VERIFY_TOKEN");
 
 /*
 	Module
@@ -28,7 +31,7 @@ module.exports = function (app) {
 	app.get(
 		"/webhook", function (req, res) {
 			if (req.query['hub.mode'] === 'subscribe' &&
-				req.query['hub.verify_token'] === Facebook.VERIFY_TOKEN) {
+				req.query['hub.verify_token'] === VERIFY_TOKEN.value) {
 				
 				res.status(200).send(req.query['hub.challenge']);
 				
