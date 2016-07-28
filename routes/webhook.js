@@ -68,7 +68,7 @@ module.exports = function (app) {
 	function processFbEvent (event)
 	{
 		var sender = event.sender.id.toString();
-		console.log(sender_id);
+		console.log(sender);
 
 	    if ((event.message && event.message.text) || (event.postback && event.postback.payload)) {
 	    var text = event.message ? event.message.text : event.postback.payload;
