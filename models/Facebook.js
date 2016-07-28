@@ -83,22 +83,7 @@ var Facebook = (function () {
 					json   : true
 				}
 			);
-		}		
-
-		function getSentMessages (postdata) {
-			return request(
-				{
-					method : "GET",
-					url    : "https://graph.facebook.com/v2.6/me/messages",
-					qs     : {
-						access_token : PAGE_ACCESS_TOKEN.value
-					},
-					form   : postdata,
-					json   : true
-				}
-			);
-		}
-		
+		}				
 		/**
 		 *  Will subscribe our Bot to the facebook page
 		 *  This is replacing the curl we used to do.
