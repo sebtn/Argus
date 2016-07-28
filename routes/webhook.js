@@ -3,14 +3,15 @@
  */
 const async     = require("async"),
       uuid      = require("node-uuid"),
-      request = require('request');
+      request   = require('request');
 
 const sessionIds = new Map();
 
 /*
 	Require models
  */
-const Facebook     = require("../models/Facebook").getInstance(),
+const 
+// Facebook     = require("../models/Facebook").getInstance(),
       ApiAi        = require("../models/ApiAi").getInstance(),
       ApiAiService = ApiAi.service,
       Persons      = require("../models/Persons"),
@@ -156,7 +157,64 @@ function sendFBMessage(sender, messageData, callback) {
     });
 }
 
+unction sendFBMessage(sender, messageData, callback) {
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token: PAGE_ACCESS_TOKEN.value},
+        method: 'POST',
+        json: {
+            recipient: {id: sender},
+            message: messageData
+        }
+    }, (error, response, body) => {
+        if (error) {
+            console.log('Error sending message: ', error);
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error);
+        }
 
+        if (callback) {
+            callback();
+        }
+    });
+}
+
+function sendFBSenderAction(sender, action, callback) {
+    setTimeout(() => {
+        request({
+            url: 'https://graph.facebook.com/v2.6/me/messages',
+            qs: {access_token: PAGE_ACCESS_TOKEN.value},
+            method: 'POST',
+            json: {
+                recipient: {id: sender},
+                sender_action: action
+            }
+        }, (error, response, body) => {
+            if (error) {
+                console.log('Error sending action: ', error);
+            } else if (response.body.error) {
+                console.log('Error: ', response.body.error);
+            }
+            if (callback) {
+                callback();
+            }
+        });
+    }, 1000);
+}
+
+function doSubscribeRequest() {
+    request({
+            method: 'POST',
+            uri: "https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=" + FB_PAGE_ACCESS_TOKEN
+        },
+        (error, response, body) => {
+            if (error) {
+                console.error('Error while subscription: ', error);
+            } else {
+                console.log('Subscription result: ', response.body);
+            }
+        });
+}
 	
 function splitResponse(str) {
 	if (str.length <= 320)
