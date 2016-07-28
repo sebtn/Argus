@@ -2,7 +2,8 @@
 	Require dependencies
  */
 const async     = require("async"),
-      uuid      = require("node-uuid");
+      uuid      = require("node-uuid"),
+      request = require('request');
 
 const sessionIds = new Map();
 
