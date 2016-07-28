@@ -31,7 +31,7 @@ var Facebook = (function () {
 			
 			// -- functions
 			getUserProfile   : getUserProfile,
-			sendMessage      : sendMessage,
+			sendFBMessage    : sendFBMessage,
 			getSentMessages  : getSentMessages,
 			subscribeRequest : subscribeRequest
 		};
@@ -71,7 +71,7 @@ var Facebook = (function () {
 		 * postdata is defined in Persons.js -> name : response.first_name + " " + response.last_name
 		 * Is postdata the same?
 		 */
-		function sendMessage (postdata) {
+		function sendFBMessage (postdata) {
 			return request(
 				{
 					method : "POST",

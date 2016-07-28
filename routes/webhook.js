@@ -63,88 +63,75 @@ module.exports = function (app) {
 	function processFbEvent (event)
 	{
 		var sender = event.sender.id.toString();
-		
-		
-		if (event.message && event.message.text) {
-			var textMessage = event.message.text;
-			
-			sessionIds[sender] = uuid.v1();
-			
+
+	    if ((event.message && event.message.text) || (event.postback && event.postback.payload)) {
+	    var text = event.message ? event.message.text : event.postback.payload;
+	    // Handle a text message from this sender
+
+	    if (!sessionIds.has(sender)) {
+	        sessionIds.set(sender, uuid.v1());
+	    }
+			console.log("Text", text);
+
 			// create request
-			var apiaiRequest = ApiAiService.textRequest(textMessage, { sessionId : sessionIds[sender] });
+			var apiaiRequest = apiAiService.textRequest(text,
+            {
+                sessionId: sessionIds.get(sender)
+            });
 			
-			apiaiRequest.on("response", function (res) {
+			apiaiRequest.on("response", function (response) {
 				var result = res.result;
 				
+				//Api.ai defined
 				if (result) {
 					var responseText = result.fulfillment.speech;
 					var responseData = result.fulfillment.data;
 					var action       = result.action;
 					
-					if (action) {
-						var data = {
-							sender_id     : sender,
-							response_data : responseData
-						};
-						
-						action = action.split(".");
-						
-						switch(action[0]) {
-							case 'deals' :
-								data.title       = result.parameters.title;
-								//data.description = result.parameters.description;
-								data.description = result.resolvedQuery;
+					if (isDefined(responseData) && isDefined(responseData.facebook)) {
+                    if (!Array.isArray(responseData.facebook)) {
+                        try {
+                            console.log('Response as formatted message');
+                            sendFBMessage(sender, responseData.facebook);
+                        } catch (err) {
+                            sendFBMessage(sender, {text: err.message});
+                        }
+                    } else {
+                        responseData.facebook.forEach((facebookMessage) => {
+                            try {
+                                if (facebookMessage.sender_action) {
+                                    console.log('Response as sender action');
+                                    sendFBSenderAction(sender, facebookMessage.sender_action);
+                                }
+                                else {
+                                    console.log('Response as formatted message');
+                                    sendFBMessage(sender, facebookMessage);
+                                }
+                            } catch (err) {
+                                sendFBMessage(sender, {text: err.message});
+                            }
+                        });
+                    }
+                } else if (isDefined(responseText)) {
+                    console.log('Response as text message');
+                    // facebook API limit for text length is 320,
+                    // so we must split message if needed
+                    var splittedText = splitResponse(responseText);
 
-								
-								Deals[action[1]](data);
-								console.log(data.description);
-								break;
-							case 'persons':
-								Persons[action[1]](data);
-								break;
-						}
-					}
-					
-					var messageData = {
-						recipient : { id : sender },
-						message   : null
-					};
-					
-					if (responseData && responseData.facebook) {
-						try {
-							messageData.message = responseData.facebook;
-							
-							Facebook.sendMessage(messageData);
-						} catch (err) {
-							messageData.message = { text : err.message };
-							
-							Facebook.sendMessage(messageData);
-						}
-					} else if (responseText) {
-						var splittedText = splitResponse(responseText);
-						
-						async.eachSeries(
-							splittedText, function (textPart, callback) {
-								messageData.message = { text : textPart };
-								
-								Facebook.sendMessage(messageData)
-									.then(function (res) {
-										callback();
-									});
-							}
-						);
-					}
-				}
-				
-			});
-			
-			apiaiRequest.on("error", function (err) {
-				console.log(err);
-			});
-			
-			apiaiRequest.end();
-		}
-	}
+                    async.eachSeries(splittedText, (textPart, callback) => {
+                        sendFBMessage(sender, {text: textPart}, callback);
+                    });
+                }
+
+            }
+        });
+
+        apiaiRequest.on('error', (error) => console.error(error));
+        apiaiRequest.end();
+    }
+}
+
+
 	
 	function splitResponse(str) {
 		if (str.length <= 320)
@@ -187,5 +174,17 @@ module.exports = function (app) {
 		}
 		output.push(s.substr(prev));
 		return output;
+	}
+
+	function isDefined(obj) {
+    if (typeof obj == 'undefined') {
+        return false;
+    }
+
+    if (!obj) {
+        return false;
+    }
+
+    return obj != null;
 	}
 }
