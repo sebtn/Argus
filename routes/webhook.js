@@ -14,9 +14,10 @@ const Facebook     = require("../models/Facebook").getInstance(),
       ApiAi        = require("../models/ApiAi").getInstance(),
       ApiAiService = ApiAi.service,
       Persons      = require("../models/Persons"),
+      config       = require("config"),
       Deals        = require("../models/Deals");
 
-const FB_PAGE_ACCESS_TOKEN = config.get("FB_PAGE_ACCESS_TOKEN");
+const PAGE_ACCESS_TOKEN = config.get("FB_PAGE_ACCESS_TOKEN");
 
 /*
 	Module
@@ -61,6 +62,7 @@ module.exports = function (app) {
 	 *
 	 * @param event
 	 */
+
 	function processFbEvent (event)
 	{
 		var sender = event.sender.id.toString();
@@ -135,7 +137,7 @@ module.exports = function (app) {
 function sendFBMessage(sender, messageData, callback) {
     return request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token: FB_PAGE_ACCESS_TOKEN.value},
+        qs: {access_token: PAGE_ACCESS_TOKEN.value},
         method: 'POST',
         json: {
             recipient: {id: sender},
@@ -156,58 +158,51 @@ function sendFBMessage(sender, messageData, callback) {
 
 
 	
-	function splitResponse(str) {
-		if (str.length <= 320)
-		{
-			return [str];
-		}
-		
-		var result = chunkString(str, 300);
-		
-		return result;
-		
+function splitResponse(str) {
+	if (str.length <= 320)
+	{
+		return [str];
 	}
 	
-	function chunkString(s, len)
-	{
-		var curr = len, prev = 0;
-		
-		var output = [];
-		
-		while(s[curr]) {
-			if(s[curr++] == ' ') {
-				output.push(s.substring(prev,curr));
-				prev = curr;
-				curr += len;
-			}
-			else
-			{
-				var currReverse = curr;
-				do {
-					if(s.substring(currReverse - 1, currReverse) == ' ')
-					{
-						output.push(s.substring(prev,currReverse));
-						prev = currReverse;
-						curr = currReverse + len;
-						break;
-					}
-					currReverse--;
-				} while(currReverse > prev)
-			}
+	var result = chunkString(str, 300);
+	
+	return result;
+	
+}
+	
+function chunkString(s, len) {
+	var curr = len, prev = 0;
+	
+	var output = [];
+	
+	while(s[curr]) {
+		if(s[curr++] == ' ') {
+			output.push(s.substring(prev,curr));
+			prev = curr;
+			curr += len;
 		}
-		output.push(s.substr(prev));
-		return output;
+		else
+		{
+			var currReverse = curr;
+			do {
+				if(s.substring(currReverse - 1, currReverse) == ' ')
+				{
+					output.push(s.substring(prev,currReverse));
+					prev = currReverse;
+					curr = currReverse + len;
+					break;
+				}
+				currReverse--;
+			} while(currReverse > prev)
+		}
 	}
+	output.push(s.substr(prev));
+	return output;
+}
 
-	function isDefined(obj) {
-    if (typeof obj == 'undefined') {
-        return false;
-    }
-
-    if (!obj) {
-        return false;
-    }
-
-    return obj != null;
+function isDefined(obj) {
+  if (typeof obj == 'undefined') { return false;}
+  if (!obj) { return false; }
+  return obj != null;
 	}
 }
