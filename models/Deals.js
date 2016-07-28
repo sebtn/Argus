@@ -43,12 +43,12 @@ var Deals = (function () {
    * it would be nice to pass the resolved queries, it contains all the info from the user's needs.      
 	*/	
 
-	function addToDescription (data) {
-			Facebook
-			getSentMessages(response)
-			// .getUserProfile(data.sender_id)
-			.then(function (response) {
-	};
+	// function addToDescription (data) {
+	// 		Facebook
+	// 		getSentMessages(response)
+	// 		// .getUserProfile(data.sender_id)
+	// 		.then(function (response) {
+	// });
 
  //-------------------------
 

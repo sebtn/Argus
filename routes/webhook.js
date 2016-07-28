@@ -93,7 +93,7 @@ module.exports = function (app) {
 							case 'deals' :
 								data.title       = result.parameters.title;
 								data.description = result.parameters.description;
-								data.description = result.resolvedQuery;
+								//data.description = result.resolvedQuery;
 
 								
 								Deals[action[1]](data);
