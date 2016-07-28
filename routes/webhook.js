@@ -95,7 +95,7 @@ module.exports = function (app) {
 					var responseData = result.fulfillment.data;
 					var action       = result.action;
 
-					console.log('responseData: ', responseData);
+					console.log('responseData: ', result.fulfillment.data);
 					//console.log('result: ', result);
 					
 					if (isDefined(responseData) && isDefined(responseData.facebook)) {
