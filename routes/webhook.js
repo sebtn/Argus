@@ -3,6 +3,8 @@
  */
 const async     = require("async"),
       uuid      = require("node-uuid");
+      
+const sessionIds = new Map();
 
 /*
 	Require models
