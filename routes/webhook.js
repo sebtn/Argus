@@ -78,7 +78,7 @@ module.exports = function (app) {
             });
 			
 			apiaiRequest.on("response", function (response) {
-				var result = res.result;
+				var result = response.result;
 				
 				//Api.ai defined
 				if (result) {
