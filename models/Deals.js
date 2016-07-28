@@ -68,8 +68,8 @@ var Deals = (function () {
 				/*console.log(JSON.stringify(res.data));*/
 				if (res.data) {
 					var keys = inArrayAtIndex('description', res.data, 'name');
-					//var values = keys.value;
-					console.log(keys);	
+					// var values = keys.value;
+					// console.log(keys);	
 				}
 			})
 			.catch(function (err) {
