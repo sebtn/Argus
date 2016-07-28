@@ -94,6 +94,8 @@ module.exports = function (app) {
 					var responseText = result.fulfillment.speech;
 					var responseData = result.fulfillment.data;
 					var action       = result.action;
+
+					console.log('result: ', result);
 					
 					if (isDefined(responseData) && isDefined(responseData.facebook)) {
                     if (!Array.isArray(responseData.facebook)) {
