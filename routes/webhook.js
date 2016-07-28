@@ -16,6 +16,8 @@ const Facebook     = require("../models/Facebook").getInstance(),
       Persons      = require("../models/Persons"),
       Deals        = require("../models/Deals");
 
+const FB_PAGE_ACCESS_TOKEN = config.get("FB_PAGE_ACCESS_TOKEN");
+
 /*
 	Module
  */
