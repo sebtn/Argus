@@ -3,7 +3,7 @@
  */
 const async     = require("async"),
       uuid      = require("node-uuid");
-      
+
 const sessionIds = new Map();
 
 /*
@@ -14,10 +14,6 @@ const Facebook     = require("../models/Facebook").getInstance(),
       ApiAiService = ApiAi.service,
       Persons      = require("../models/Persons"),
       Deals        = require("../models/Deals");
-/*
-
- */
-var sessionIds = {};
 
 /*
 	Module
