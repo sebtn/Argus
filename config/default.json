@@ -1,5 +1,5 @@
 {
-	process.env.NODE_ENV = 'production';
+	
 	"APIAI_ACCESS_TOKEN"     : {
 		"description" : "Client access token for Api.ai",
 		"value"       : "551170e2fd3f490dbd2671463d08e921"
