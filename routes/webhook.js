@@ -10,9 +10,7 @@ const sessionIds = new Map();
 /*
 	Require models
  */
-const 
-// Facebook     = require("../models/Facebook").getInstance(),
-      ApiAi        = require("../models/ApiAi").getInstance(),
+const ApiAi        = require("../models/ApiAi").getInstance(),
       ApiAiService = ApiAi.service,
       Persons      = require("../models/Persons"),
       config       = require("config"),
@@ -79,6 +77,7 @@ module.exports = function (app) {
 	        sessionIds.set(sender, uuid.v1());
 	    }
 			console.log("Text", text);
+			console.log('sender');
 
 			// create request
 			var apiaiRequest = ApiAiService.textRequest(text,
