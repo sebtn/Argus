@@ -37,7 +37,6 @@ require("./routes/webhook")(app);
  |  USEFULL FUNCTIONS
  | ------------------------------------------------------------------------------
  */
-
 /*
  * Verify that the callback came from Facebook. Using the App Secret from 
  * the App Dashboard, we can verify the signature that is sent with each 

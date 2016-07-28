@@ -16,13 +16,17 @@ const ApiAi        = require("../models/ApiAi").getInstance(),
       config       = require("config"),
       Deals        = require("../models/Deals");
 
-
-		const PAGE_ACCESS_TOKEN = config.get("FB_PAGE_ACCESS_TOKEN");
-		const APP_SECRET        = config.get("FB_APP_SECRET");
-		const VERIFY_TOKEN      = config.get("FB_VERIFY_TOKEN");
+/*
+Constant from default json
+*/
+const PAGE_ACCESS_TOKEN = config.get("FB_PAGE_ACCESS_TOKEN"),
+			APP_SECRET        = config.get("FB_APP_SECRET"),
+		  LANGUAGE          = config.get("APIAI_LANGUAGE"),
+		  ACCESS_TOKEN      = config.get("APIAI_ACCESS_TOKEN"),
+			VERIFY_TOKEN      = config.get("FB_VERIFY_TOKEN");
 
 /*
-	Module
+	Module for the webhook from api.ai and fb
  */
 module.exports = function (app) {
 	
@@ -59,11 +63,6 @@ module.exports = function (app) {
 			}
 		}
 	);
-	
-	/**
-	 *
-	 * @param event
-	 */
 
 	function processFbEvent (event)
 	{
@@ -78,7 +77,6 @@ module.exports = function (app) {
 	        sessionIds.set(sender, uuid.v1());
 	    }
 			console.log("Text", text);
-
 
 			// create request
 			var apiaiRequest = ApiAiService.textRequest(text,
@@ -95,8 +93,7 @@ module.exports = function (app) {
 					var responseData = result.fulfillment.data;
 					var action       = result.action;
 
-					console.log('responseData: ', result.fulfillment.data);
-					//console.log('result: ', result);
+					console.log('result: ', result);
 					
 					if (isDefined(responseData) && isDefined(responseData.facebook)) {
                     if (!Array.isArray(responseData.facebook)) {
@@ -139,10 +136,10 @@ module.exports = function (app) {
         apiaiRequest.on('error', (error) => console.error(error));
         apiaiRequest.end();
     }
-}
+};
 
 function sendFBMessage(sender, messageData, callback) {
-    return request({
+    request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token: PAGE_ACCESS_TOKEN.value},
         method: 'POST',
@@ -161,7 +158,7 @@ function sendFBMessage(sender, messageData, callback) {
             callback();
         }
     });
-}
+};
 
 function sendFBSenderAction(sender, action, callback) {
     setTimeout(() => {
@@ -184,7 +181,7 @@ function sendFBSenderAction(sender, action, callback) {
             }
         });
     }, 1000);
-}
+};
 
 function doSubscribeRequest() {
     request({
@@ -198,7 +195,19 @@ function doSubscribeRequest() {
                 console.log('Subscription result: ', response.body);
             }
         });
-}
+};
+
+function getFBProfile(senderId) {
+	request({
+					method: 'GET', 
+					uri: "https://graph.facebook.com/v2.6/" +  senderId,
+					qs:{
+						fields: 'first_name,last_name,profile_pic,locale,timezone,gender',
+						access_token: PAGE_ACCESS_TOKEN.value
+					},
+					json: true
+				});
+};
 	
 function splitResponse(str) {
 	if (str.length <= 320)
@@ -210,7 +219,7 @@ function splitResponse(str) {
 	
 	return result;
 	
-}
+};
 	
 function chunkString(s, len) {
 	var curr = len, prev = 0;
@@ -240,11 +249,11 @@ function chunkString(s, len) {
 	}
 	output.push(s.substr(prev));
 	return output;
-}
+};
 
 function isDefined(obj) {
   if (typeof obj == 'undefined') { return false;}
   if (!obj) { return false; }
   return obj != null;
 	}
-}
+};
