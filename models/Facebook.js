@@ -11,7 +11,7 @@ const config  = require("config"),
  * @type {{getInstance}}
  */
 var Facebook = (function () {
-	
+	// Why do we instantiate?
 	var INSTANCE;
 	
 	function createInstance () {
@@ -32,6 +32,7 @@ var Facebook = (function () {
 			// -- functions
 			getUserProfile   : getUserProfile,
 			sendMessage      : sendMessage,
+			getSentMessages  : getSentMessages,
 			subscribeRequest : subscribeRequest
 		};
 		
@@ -68,11 +69,26 @@ var Facebook = (function () {
 		 * here we are adding a form to the json object: postdata which is also the params.
 		 * 
 		 * postdata is defined in Persons.js -> name : response.first_name + " " + response.last_name
+		 * Is postdata the same?
 		 */
 		function sendMessage (postdata) {
 			return request(
 				{
 					method : "POST",
+					url    : "https://graph.facebook.com/v2.6/me/messages",
+					qs     : {
+						access_token : PAGE_ACCESS_TOKEN.value
+					},
+					form   : postdata,
+					json   : true
+				}
+			);
+		}		
+
+		function getSentMessages (postdata) {
+			return request(
+				{
+					method : "GET",
 					url    : "https://graph.facebook.com/v2.6/me/messages",
 					qs     : {
 						access_token : PAGE_ACCESS_TOKEN.value

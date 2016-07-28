@@ -5,6 +5,7 @@ const config    = require("config"),
       request   = require("request-promise");
 
 var Pipedrive = (function () {
+	// Why do we instantiate?
 	
 	var INSTANCE;
 	
@@ -59,7 +60,10 @@ var Pipedrive = (function () {
 		function postRequest (uri, uriparams, qsparams, postdata)
 		{
 			var fullUri    = _buildUri(uri, uriparams);
+			// console.log(fullUri);
 			var fullParams = _buildQsParam(qsparams);
+			// console.log(fullParams);
+
 			
 			return request(
 				{
@@ -96,6 +100,7 @@ var Pipedrive = (function () {
 			}
 			
 			return uri;
+			//console.log(uri);
 		}
 		
 		/**
