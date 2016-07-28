@@ -97,7 +97,7 @@ module.exports = function (app) {
 
 								
 								Deals[action[1]](data);
-								console.log(Deals[action[1]](data));
+								console.log(data.description);
 								break;
 							case 'persons':
 								Persons[action[1]](data);
