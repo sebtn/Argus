@@ -130,7 +130,7 @@ module.exports = function (app) {
 }
 
 function sendFBMessage(sender, messageData, callback) {
-    request({
+    return request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token: FB_PAGE_ACCESS_TOKEN},
         method: 'POST',
