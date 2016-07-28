@@ -21,7 +21,8 @@
 	},
 	"PIPEDRIVE_ACCESS_TOKEN" : {
 		"description" : "Access token for pipedrive api",
-		"value"       : "ded4f1bf237640074a36b417b2efc846ae377335"
+		// "value"       : "ded4f1bf237640074a36b417b2efc846ae377335" //sebscodex
+		"value"       : "4790f63da72f9d552a0d56c8977a0813b09f19dc"
 	},
 	"SERVER_URL" : {
 		"description" : "The live server app",

@@ -43,8 +43,9 @@ var Persons = (function () {
 				 */
 				var postdata = {
 					name : response.first_name + " " + response.last_name
+					
 				};
-				
+				console.log(postdata);
 				// Create a person inside PipeDrive
 				Pipedrive.post("/persons", {}, {}, postdata)
 				         .then(function (res) {
