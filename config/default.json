@@ -14,7 +14,7 @@
 	},
 	"FB_PAGE_ACCESS_TOKEN"   : {
 		"description" : "Page Access Token",
-		"value"       : "EAAJjPwEelmYBAG0PWIwyv9RFTmH16uwlluR5CUpyjZBW8QgO90GXLtWQPHN3jJSPsjRa8wvXX9vCFV6S41l3oWqhZABuIMZA9ovk5CCm5jCGHUhQPTxRc9ahI0M8GFhbkKa4kcOmVStITyRyZB3ReMFZCC9xZBK3cpJKuYWHoAfdZBiZBSSSKjSo"
+		"value"       : "EAAJjPwEelmYBAGRFX6ZAZB6qtit7s5LXQZBwIFCrZB2k8ffSnwzULMeW5sRvenrCFZBt99YZBPon3Iu2ZCxelCZAZC7LJY1GMQpc4nJVaUFZBMgQuSxbxkfqByYcqZAsa2WQiIWJBpBeAUDAZACV0XERYJfNn4QaoPIf5u1XGuGnhU82l193XZCaaGuGo"
 	},
 	"FB_APP_SECRET"          : {
 		"description" : "Application secret",
