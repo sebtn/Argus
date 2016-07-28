@@ -72,7 +72,7 @@ module.exports = function (app) {
 			console.log("Text", text);
 
 			// create request
-			var apiaiRequest = apiAiService.textRequest(text,
+			var apiaiRequest = ApiAiService.textRequest(text,
             {
                 sessionId: sessionIds.get(sender)
             });
