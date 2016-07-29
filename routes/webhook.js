@@ -40,15 +40,15 @@ Constant from default json
 
 */
 
-const PAGE_ACCESS_TOKEN = config.get("FB_PAGE_ACCESS_TOKEN"),
+const PAGE_ACCESS_TOKEN = config.get("FB_PAGE_ACCESS_TOKEN");
 
-			APP_SECRET        = config.get("FB_APP_SECRET"),
+const APP_SECRET        = config.get("FB_APP_SECRET");
 
-		  LANGUAGE          = config.get("APIAI_LANGUAGE"),
+const LANGUAGE          = config.get("APIAI_LANGUAGE");
 
-		  ACCESS_TOKEN      = config.get("APIAI_ACCESS_TOKEN"),
+const ACCESS_TOKEN      = config.get("APIAI_ACCESS_TOKEN");
 
-			VERIFY_TOKEN      = config.get("FB_VERIFY_TOKEN");
+const VERIFY_TOKEN      = config.get("FB_VERIFY_TOKEN");
 
 
 
